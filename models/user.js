@@ -53,4 +53,28 @@ const userSchema = new Schema({
 {timestamps: true}
 );
 
+userSchema.pre("save", async function(next) {
+    // if(!this.isModefied("password")) next();
+
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt)
+});
+
+UserSchema.pre("remove",async function (next){
+    await this.model("Post").deleteMany({createUser: this._id})
+    next();
+});
+
+UserSchema.methods.getJsonWebToken = function(){
+    const token = jwt.sign({id: this._id, role: this.name}, process.env.JWT_SECRET, {
+        expiresIn: process.env.JWT_EXPIRESIN
+    });
+    return token;
+};
+
+UserSchema.methods.checkPassword = async function(enteredPassword){
+    return await bcrypt.compare(enteredPassword, this.password);
+}
+
+
 export const User = mongoose.model("user", userSchema);

@@ -1,5 +1,5 @@
 import asyncHandler from "express-async-handler";
-import { User } from "../models/user";
+import { User } from "../models/User";
 import { MyError } from "../utils/myError"
 
 //register
@@ -39,6 +39,8 @@ export const loginUser = asyncHandler(async(req, res, next) => {
     });
 });
 
+
+//buh user-g awah api
 export const getUsers = asyncHandler(async(req, res, next) => {
     const user = await User.find();
     
@@ -48,7 +50,7 @@ export const getUsers = asyncHandler(async(req, res, next) => {
     });
 });
 
-
+//delete user account
 export const deleteUser = asyncHandler(async( req, res, next) => {
     const user = await User.findById(req.params.id);
     if(!user){
@@ -59,3 +61,9 @@ export const deleteUser = asyncHandler(async( req, res, next) => {
         success: true
     });
 });
+
+
+//user profile image hiine
+export const profileImageUpload = () => {
+
+}
