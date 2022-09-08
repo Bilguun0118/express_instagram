@@ -12,17 +12,26 @@ export const protect = asyncHandler(async(req, res, next) => {
 
     const tokenObj = jwt.verify(token, process.env.JWT_SECRET);
 
-    // req.user = User.findById(tokenObj.id);
+    req.user = User.findById(tokenObj.id);
     req.userId = tokenObj.id;
     // req.userRole = tokenObj.role;
     next();
 });
 
-export const authorize = (userId) => {
-    return(req, res, next) => {
-        if(!userId === req._id){
-            throw new MyError(`Tanii erh ene uildlig hiihed hureltsehgui!`, 403);
-        }
-        next();
+export const authorize = (createUser, nowUser) => {
+    if (createUser != nowUser) {
+        return false
+        //throw new MyError(`Tanii erh ene uildlig hiihed hureltsehgui!`, 403);
+    }else{
+        return true
     }
 }
+
+// export const authorize = (userId) => {
+//     return(req, res, next) => {
+//         if(!userId === req._id){
+//             throw new MyError(`Tanii erh ene uildlig hiihed hureltsehgui!`, 403);
+//         }
+//         next();
+//     }
+// }

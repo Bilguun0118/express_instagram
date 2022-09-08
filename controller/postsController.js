@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler"
-import { Post } from "../models/Post";
-import { Follow } from "../models/Follow";
-import { TimeLine } from "../models/TimeLine";
+import { Post } from "../models/Post.js";
+import { Follow } from "../models/Follow.js";
+import { TimeLine } from "../models/TimeLine.js";
 import { MyError } from "../utils/myError.js";
 import path from "path";
 import { time } from "console";

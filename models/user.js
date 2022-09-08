@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 const {Schema} = mongoose;
 
 const userSchema = new Schema({
@@ -60,19 +61,19 @@ userSchema.pre("save", async function(next) {
     this.password = await bcrypt.hash(this.password, salt)
 });
 
-UserSchema.pre("remove",async function (next){
+userSchema.pre("remove",async function (next){
     await this.model("Post").deleteMany({createUser: this._id})
     next();
 });
 
-UserSchema.methods.getJsonWebToken = function(){
+userSchema.methods.getJsonWebToken = function(){
     const token = jwt.sign({id: this._id, role: this.name}, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRESIN
     });
     return token;
 };
 
-UserSchema.methods.checkPassword = async function(enteredPassword){
+userSchema.methods.checkPassword = async function(enteredPassword){
     return await bcrypt.compare(enteredPassword, this.password);
 }
 

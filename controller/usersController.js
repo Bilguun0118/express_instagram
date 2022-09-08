@@ -1,9 +1,9 @@
 import asyncHandler from "express-async-handler";
-import { User } from "../models/User";
-import { MyError } from "../utils/myError"
+import { User } from "../models/User.js";
+import { MyError } from "../utils/myError.js"
 
 //register
-export const registerUser = async(req, res, next) => {
+export const registerUser = asyncHandler(async(req, res, next) => {
     const user = await User.create(req.body);
     //const token = user.getJsonWebToken();
     res.status(200).json({
@@ -11,7 +11,7 @@ export const registerUser = async(req, res, next) => {
         user: user,
         message: "hello"
     });
-};
+});
 
 //login
 
@@ -28,7 +28,7 @@ export const loginUser = asyncHandler(async(req, res, next) => {
         throw new MyError("email bolon nuuts egee zow oruulna uu?", 401);
     }
 
-    const pass = await user.checkPassword (password);
+    const pass = await user.checkPassword(password);
     if(!pass) {
         throw new MyError("pass zow oruulna uu?", 401);
     }

@@ -34,7 +34,7 @@ const PostSchema = new Schema({
     },
     createUser:{
         type: mongoose.Schema.ObjectId,
-        ref:"User",
+        ref:"user",
         required: true
     },
     comments: {

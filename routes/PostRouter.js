@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { getPosts, newPost, uploadPhoto,deletePost, updatePost, getTimeline } from "../controller/posts";
-import { protect } from "../middleware/protect";
+import { getPosts, newPost, uploadPhoto,deletePost, updatePost, getTimeline } from "../controller/postsController.js";
+import { protect } from "../middleware/protect.js";
 const postsRouter = Router();
 postsRouter.use(protect);
 postsRouter.get("/", getPosts);

@@ -1,7 +1,8 @@
 import asyncHandler from "express-async-handler";
-import { MyError } from "../utils/myError";
+import { MyError } from "../utils/myError.js";
 import { Follow } from "../models/Follow.js";
 
+//follow
 export const follow = asyncHandler(async (req, res, next) => {
     const follower = req.userId;
     const following = req.body.following;
@@ -10,7 +11,8 @@ export const follow = asyncHandler(async (req, res, next) => {
         follows
     });
 });
-  
+
+//following
 export const following = async (req, res) => {
     const follower = req.userId;
     const follows = await Follow.find({ follower })

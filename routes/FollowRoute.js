@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { protect } from "../middleware/protect";
-import { follow, following } from "../controller/follow";
+import { protect } from "../middleware/protect.js";
+import { follow, following } from "../controller/followController.js";
 const followRouter = Router();
 
 followRouter.use(protect);
