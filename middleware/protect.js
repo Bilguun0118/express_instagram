@@ -1,6 +1,7 @@
 import  jwt  from "jsonwebtoken";
 import {asyncHandler} from "./asyncHandler.js";
 import { MyError } from "../utils/myError.js";
+import { User } from "../models/User.js";
 export const protect = asyncHandler(async(req, res, next) => {
     if(!req.headers.authorization){
         throw new MyError("ene uildeliig hiihed tanii erh hurehgui bn. Ta ehleed newtrej oroh ystoi!", 401);
